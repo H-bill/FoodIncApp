@@ -1,32 +1,22 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+
 import java.util.ArrayList;
-import java.util.List;
+
 import java.util.StringTokenizer;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
-import org.apache.http.Header;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.CookieStore;
+
+
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
+
+
+
 import org.apache.http.client.params.CookiePolicy;
-import org.apache.http.client.protocol.ClientContext;
-import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-import org.apache.http.util.EntityUtils;
+
+
 
 /*
  * AngelTest for http://clickslide.co/angelhack6 test site
@@ -40,6 +30,8 @@ public class IngredientFetcher {
 	public String geturl; 
 	public String loginurl;
 	public String puturl;
+	public String ing;
+	public String theurl;
 	
 	/*
 	 * Refactored by AGF
@@ -49,16 +41,15 @@ public class IngredientFetcher {
 	 * Create it once and use it throughout the class. Saves time and overhead.
 	 */
 	public HttpClient httpclient;
-	public IngredientFetcher (String a){
+	public IngredientFetcher (){
 		// set up the URLs we need for testing.
 		// TODO: by AGF, eventually automate these via data in a database
-		this.posturl= a;
+		this.posturl= "http://recipes.wikia.com/wiki/Special:Random";
+
 		
 		// the put url needs the ID added dynamically like so:
 		// http://clickslide.co/angelhack6/basicpages/ + ID + .xml
-		this.puturl = a;
-		this.loginurl = a;
-		this.geturl = a;
+
 		
 		/*
 		 * ADDED by AGF 8/5/12
@@ -74,7 +65,7 @@ public class IngredientFetcher {
 	/**
 	 * Displays the data from a page if the correct session ID is entered.
 	 * If unsuccessful an auto-generated catch block is displayed instead.
-	 */
+	 *//*
 	public String getIt(){
 		String htmlString = "";
 
@@ -113,24 +104,43 @@ public class IngredientFetcher {
     return htmlString;
 }
         
-        
-        public static String getUrlSource(String url2) throws IOException {
-            URL yahoo = new URL(url2);
+        */
+        public boolean isRecipe() throws IOException {
+            URL yahoo = new URL(posturl);
             URLConnection yc = yahoo.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     yc.getInputStream(), "UTF-8"));
             String inputLine;
             StringBuilder a = new StringBuilder();
+
             while ((inputLine = in.readLine()) != null)
                 a.append(inputLine);
             in.close();
+        //    System.out.println(a.toString());
 
-            return a.toString();
+            ing= a.toString();
+            String abba = ing.substring(a.indexOf("canonical")+10);
+            String baab = abba.substring(abba.indexOf("=")+2,abba.indexOf(">")-3);
+            theurl = baab;
+    		if(ing.indexOf("Ingredients")==-1)
+    			return false;
+    		if(ing.indexOf("Directions")==-1)
+    			return false;
+    		if(ing.indexOf("<ul>") ==-1)
+    			return false;
+    		if(ing.indexOf("title")==-1)
+    			return false;
+    		else
+    			return true;
+            
+        }
+        public String theURL(){
+        	return theurl;
         }
 		
 
 	
-
+/*
 	protected HttpContext manageCookies(String sessid){
 		CookieStore cookieStore = new BasicCookieStore();
         BasicClientCookie cookie = new BasicClientCookie("Set-Cookie", sessid);
@@ -138,18 +148,40 @@ public class IngredientFetcher {
         HttpContext localContext = new BasicHttpContext();
         localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
         return localContext;
-	}
+	}*//*
+    public boolean isRecipe() throws IOException{
+    	
+		
+		int a = ing.indexOf("Ingredients");
+		if(a==-1)
+			return false;
+		int b = ing.indexOf("Directions");
+		if(b==-1)
+			return false;
+		String ingr = ing.substring(a,b);
+		a = ingr.indexOf("<ul>");
+		b = ingr.indexOf("</ul");
+		if((a) ==-1)
+			return false;
+		ingr = ingr.substring(a, b);
+		if(ingr.indexOf("title")==-1)
+			return false;
+		else
+		return true;
+    	
+    }*/
 	public ArrayList<String> getIngredients() throws IOException{
 	//	String rustic = "http://recipes.wikia.com/wiki/Curried_Pork_Medley";
 	//	IngredientFetcher infe = new IngredientFetcher(rustic);
-		String ing = getUrlSource(posturl);
+
+		ArrayList<String> ingredients = new ArrayList<String>();
 		int a = ing.indexOf("Ingredients");
 		int b = ing.indexOf("Directions");
 		String ingr = ing.substring(a,b);
 		a = ingr.indexOf("<ul>");
 		b = ingr.indexOf("</ul");
 		ingr = ingr.substring(a, b);
-		ArrayList<String> ingredients = new ArrayList<String>();
+
 		StringTokenizer st = new StringTokenizer(ingr,">");
 		while (st.hasMoreTokens()) {//while there are more chunks
 			String c = st.nextToken();//gets the next chunk
