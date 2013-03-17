@@ -10,6 +10,8 @@ import java.util.StringTokenizer;
 import java.net.URL;
 import java.net.URLConnection;
 
+import javax.swing.plaf.synth.Region;
+
 
 import org.apache.http.client.HttpClient;
 
@@ -17,6 +19,7 @@ import org.apache.http.client.HttpClient;
 
 import org.apache.http.client.params.CookiePolicy;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.jsoup.Jsoup;
 
 
 
@@ -112,18 +115,26 @@ public class IngredientFetcher {
         	return ford;
         }
         public void info() throws IOException{
-        	FileWriter out = new FileWriter("FileToSendDataTo.txt"); //this file gets created right now
-			PrintWriter fout = new PrintWriter(out); //open the file
+  //      	FileWriter out = new FileWriter("FileToSendDataTo.txt"); //this file gets created right now
+	//		PrintWriter fout = new PrintWriter(out); //open the file
 			int de = ing.indexOf("Description");
+			String body = "";
 			if(de==-1){
-				fout.println(ing.substring(ing.indexOf("Ingredients")-34,ing.indexOf("<!-- NewPP limit")));
+				body = ing.substring(ing.indexOf("Ingredients")-34,ing.indexOf("<!-- NewPP limit"));
 			}
 			else{
-				fout.println(ing.substring(de-34,ing.indexOf("<!-- NewPP limit")));
+				body = ing.substring(de-34,ing.indexOf("<!-- NewPP limit"));
 			}
-
-
-			out.close();//close the file
+			
+		//	string htmlString = @"<p>I'm HTML!</p>";
+		//	Region r = new Region();
+			//Replace(htmlString, @"<(.|\n)*?>", "");
+			//out.close();//close the file
+			String body2 = body.replaceAll("Edit", "");
+			for (String line : body2.split("\n")) {
+			    String stripped = Jsoup.parse(line).text();
+			    System.out.println(stripped);
+			}
         }
 		
 
