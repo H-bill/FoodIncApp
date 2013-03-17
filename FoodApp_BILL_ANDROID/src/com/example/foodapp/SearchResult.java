@@ -51,44 +51,6 @@ public class SearchResult extends ListActivity {
 			e.printStackTrace();
 		}
         
-        /*
-        //----------------------------
-        Log.i(TAG, "okay");
-        //----------------------------
-        ArrayList<RecipeElement> temp = new ArrayList<RecipeElement>();
-        Iterator <String> interator = searchList.iterator();
-        do {
-        	s = interator.next();
-        	
-        	Iterator<String> intIngr = ingredients.iterator();
-        	do {
-        		if (s.toLowerCase().contains(intIngr.next().toLowerCase())) {
-        			number++;
-        			break;
-        		}
-        	} while (intIngr.hasNext());
-            //----------------------------
-            Log.i(TAG, "okay");
-            Log.i(TAG, s);
-            //----------------------------
-        	
-        	if (number > 0) {
-        		RecipeElement element = new RecipeElement();
-        		element.putNumber(number);
-        		element.putName(s.substring(s.indexOf("name={S: "), s.indexOf(",")));
-        		temp.add(element);
-                //----------------------------
-                Log.i(TAG, "okay_add");
-                //----------------------------
-        	}
-        } while (interator.hasNext());
-        //----------------------------
-        Log.i(TAG, "okayf");
-        //----------------------------
-        
-        ArrayList<String> finalList = organizeList(temp);
-        */
-        
         ParseSearch parse = new ParseSearch();
         parse.execute(searchList, ingredients);
         
@@ -110,15 +72,19 @@ public class SearchResult extends ListActivity {
         
     	lv.setOnItemClickListener(new OnItemClickListener() {
     		public void onItemClick(AdapterView<?> parentView, View view, int position, long id) {
-    			
+    			/*
     			int duration = Toast.LENGTH_SHORT;
     			Context context = getApplicationContext();
-    			
+    			*/
     			String item = (String) parentView.getItemAtPosition(position);
-    			
+    			/*
         		Toast toast = Toast.makeText(context, ""+item, duration);
         		toast.show();
-        		
+        		*/
+    			
+    			Intent i = new Intent(SearchResult.this, DisplayRecipe.class);
+				i.putExtra("name", item);
+				startActivity(i);
 
     			       		
     		}       	

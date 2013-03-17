@@ -30,6 +30,10 @@
             android:name="com.example.foodapp.SearchActivity"
             android:label="@string/app_name" >
         </activity>
+        <activity 
+            android:name="com.example.foodapp.DisplayRecipe"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>
