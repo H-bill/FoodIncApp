@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 import java.util.ArrayList;
 
@@ -109,6 +111,20 @@ public class IngredientFetcher {
         public String drank(){
         	return ford;
         }
+        public void info() throws IOException{
+        	FileWriter out = new FileWriter("FileToSendDataTo.txt"); //this file gets created right now
+			PrintWriter fout = new PrintWriter(out); //open the file
+			int de = ing.indexOf("Description");
+			if(de==-1){
+				fout.println(ing.substring(ing.indexOf("Ingredients")-34,ing.indexOf("<!-- NewPP limit")));
+			}
+			else{
+				fout.println(ing.substring(de-34,ing.indexOf("<!-- NewPP limit")));
+			}
+
+
+			out.close();//close the file
+        }
 		
 
 
@@ -131,19 +147,22 @@ public class IngredientFetcher {
 			if(c.contains("title")){
 				String d = st.nextToken();
 			//	if(d.contains("beer")||d.contains("vodka")||d.contains("wine")||d.contains("whiskey")||d.contains("champagne")||d.contains("rum")||d.contains("gin"))
-				//	ford = "drink";
+				//	ford = "drinok";
 			
 				int da = d.indexOf("<");
 
 				ingredients.add(d.substring(0,da));
+				//String d = st.nextToken();
+				//int comma = 
+				//String f = d.substring(0,d.indexOf(","));
 			}
 			/*
 			int ca = c.indexOf(">");
 			ca++;
 			int cb = c.indexOf("</a>");*/
-		//	ingredients.add(c.substring(ca,cb));
+			//	ingredients.add(c.substring(ca,cb));
 			
-	 }
+		}
 		for(int j = 0; j<ingredients.size();j++){
 			System.out.println(ingredients.get(j));
 		}
