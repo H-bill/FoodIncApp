@@ -32,6 +32,8 @@ public class IngredientFetcher {
 	public String puturl;
 	public String ing;
 	public String theurl;
+	public String ford = "food";
+	
 	
 	/*
 	 * Refactored by AGF
@@ -65,46 +67,8 @@ public class IngredientFetcher {
 	/**
 	 * Displays the data from a page if the correct session ID is entered.
 	 * If unsuccessful an auto-generated catch block is displayed instead.
-	 *//*
-	public String getIt(){
-		String htmlString = "";
+	 */
 
-		String info = "";
-		
-		System.out.println("Executing post request now");
-        HttpGet httpget = new HttpGet(posturl);
-
-        try {
-            // Execute HTTP Post Request
-        	HttpResponse response = this.httpclient.execute(httpget);
-            HttpEntity entity = response.getEntity();
-            info = (""+EntityUtils.toString(entity));
-            Header[] headers = response.getAllHeaders();
-           // for(int i=0;i<headers.length;i++){
-            	System.out.println();
-            	System.out.println();
-            	
-           // 	System.out.println(i);
-            	System.out.println();
-            	System.out.println();
-            	htmlString = ""+headers[20];
-            	
-            //	System.out.println(htmlString);
-
-            	
-          //  }
-            System.out.println("\n"+info);
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-        }
-	
-	// Return a string
-    return htmlString;
-}
-        
-        */
         public boolean isRecipe() throws IOException {
             URL yahoo = new URL(posturl);
             URLConnection yc = yahoo.openConnection();
@@ -122,13 +86,18 @@ public class IngredientFetcher {
             String abba = ing.substring(a.indexOf("canonical")+10);
             String baab = abba.substring(abba.indexOf("=")+2,abba.indexOf(">")-3);
             theurl = baab;
+            ford = "food";
+        	if(ing.contains("Drink Recipes"))
+        		ford = "drink";
     		if(ing.indexOf("Ingredients")==-1)
     			return false;
     		if(ing.indexOf("Directions")==-1)
     			return false;
-    		if(ing.indexOf("<ul>") ==-1)
+    	
+    		String ingr = ing.substring(ing.indexOf("Ingredients"),ing.indexOf("Directions"));
+    		if(ingr.indexOf("<ul>") ==-1)
     			return false;
-    		if(ing.indexOf("title")==-1)
+    		if(ingr.indexOf("title")==-1)
     			return false;
     		else
     			return true;
@@ -137,39 +106,12 @@ public class IngredientFetcher {
         public String theURL(){
         	return theurl;
         }
+        public String drank(){
+        	return ford;
+        }
 		
 
-	
-/*
-	protected HttpContext manageCookies(String sessid){
-		CookieStore cookieStore = new BasicCookieStore();
-        BasicClientCookie cookie = new BasicClientCookie("Set-Cookie", sessid);
-        cookie.setPath("/");
-        HttpContext localContext = new BasicHttpContext();
-        localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
-        return localContext;
-	}*//*
-    public boolean isRecipe() throws IOException{
-    	
-		
-		int a = ing.indexOf("Ingredients");
-		if(a==-1)
-			return false;
-		int b = ing.indexOf("Directions");
-		if(b==-1)
-			return false;
-		String ingr = ing.substring(a,b);
-		a = ingr.indexOf("<ul>");
-		b = ingr.indexOf("</ul");
-		if((a) ==-1)
-			return false;
-		ingr = ingr.substring(a, b);
-		if(ingr.indexOf("title")==-1)
-			return false;
-		else
-		return true;
-    	
-    }*/
+
 	public ArrayList<String> getIngredients() throws IOException{
 	//	String rustic = "http://recipes.wikia.com/wiki/Curried_Pork_Medley";
 	//	IngredientFetcher infe = new IngredientFetcher(rustic);
@@ -188,6 +130,9 @@ public class IngredientFetcher {
 		//	System.out.println(c);
 			if(c.contains("title")){
 				String d = st.nextToken();
+			//	if(d.contains("beer")||d.contains("vodka")||d.contains("wine")||d.contains("whiskey")||d.contains("champagne")||d.contains("rum")||d.contains("gin"))
+				//	ford = "drink";
+			
 				int da = d.indexOf("<");
 
 				ingredients.add(d.substring(0,da));
