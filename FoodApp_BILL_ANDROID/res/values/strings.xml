@@ -1,9 +1,9 @@
 <resources>
 
-    <string name="app_name">Food App</string>
+    <string name="app_name">Lettuces and Lime</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">Food App</string>
+    <string name="title_activity_main">Lettuces and Lime</string>
     <string name="mainButtonFood">Food Recipes</string>
     <string name="mainButtonDrink">Drink Mixes</string>
     <string name="lettuce">It\'s a peice of lettuce</string>

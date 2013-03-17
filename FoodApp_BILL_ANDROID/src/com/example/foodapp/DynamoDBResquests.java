@@ -14,13 +14,13 @@ public class DynamoDBResquests {
 
 }
 
-class SearchInDynamo extends AsyncTask<ArrayList<String>, Void, ArrayList<String>> {
+class SearchInDynamo extends AsyncTask<String, Void, ArrayList<String>> {
 	
 	private ArrayList<String> returnList;
 
 	@Override
-	protected ArrayList<String> doInBackground(ArrayList<String>... params) {
-		//ArrayList<String> bucket = params[0];
+	protected ArrayList<String> doInBackground(String... params) {
+		String tableName = params[0];
 		
 		ArrayList<String> tempList = new ArrayList<String>();
 		
@@ -29,7 +29,7 @@ class SearchInDynamo extends AsyncTask<ArrayList<String>, Void, ArrayList<String
 						Constants.SECRET_KEY));
 		
 		ScanRequest scanRequest = new ScanRequest()
-			.withTableName("FoodApp");
+			.withTableName(tableName);
 			//.withAttributesToGet("name");
 		com.amazonaws.services.dynamodb.model.ScanResult result = dynamoDBClient.scan(scanRequest);
 		

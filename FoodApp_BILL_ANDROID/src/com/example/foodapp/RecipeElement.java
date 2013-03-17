@@ -4,7 +4,12 @@ import java.util.Comparator;
 
 public class RecipeElement {
 	private String name;
+	private String url;
 	private int number;
+	
+	void putUrl (String url) {
+		this.url = url;
+	}
 	
 	void putNumber (int number) {
 		this.number = number;
@@ -16,6 +21,10 @@ public class RecipeElement {
 	
 	String getName() {
 		return this.name;
+	}
+	
+	String getUrl() {
+		return this.url;
 	}
 	
 	int getNumer() {

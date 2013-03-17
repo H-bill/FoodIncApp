@@ -31,11 +31,20 @@ public class DisplayRecipe extends Activity {
         TAG = "MyActivity2";
         
         final String TAG = "MyActivity2";
-        url = "http://www.google.com";
+        //url = "http://www.google.com";
         
         Intent intent = getIntent();
         String recipe = intent.getExtras().getString("recipe");
-
+        /*
+        Log.i(TAG, "***********************************************");
+        Log.i(TAG, recipe);
+        Log.i(TAG, "***********************************************");
+        recipe = recipe.substring(0, recipe.indexOf(", }"));
+        Log.i(TAG, recipe);
+        Log.i(TAG, "***********************************************");
+		*/
+        url = "http://recipes.wikia.com/wiki/" + recipe;
+        	
         WebView wv = (WebView) findViewById(R.id.webView);
         WebSettings webSettings = wv.getSettings();
         webSettings.setJavaScriptEnabled(true);

@@ -8,8 +8,10 @@ import java.util.StringTokenizer;
 import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,10 +38,14 @@ public class SearchResult extends ListActivity {
         ingredients = getIngredients();
         ArrayList<String> finalList = new ArrayList<String>();
         
+        Intent intent = getIntent();
+        String tableName = new String();
+        tableName = intent.getExtras().getString("tableName");
+        
         
         //search ---------------------------------
         SearchInDynamo search = new SearchInDynamo();
-        search.execute(ingredients);
+        search.execute(tableName);
         
         try {
 			searchList = search.get();
@@ -64,12 +70,37 @@ public class SearchResult extends ListActivity {
 			e.printStackTrace();
 		}
         
+        
         setListAdapter(new ArrayAdapter<String>(this, 
                 R.layout.bucket_list, finalList));
 
         ListView lv = getListView();
-        
-        
+        if (finalList.isEmpty()) {
+        	/*
+			int duration = Toast.LENGTH_SHORT;
+			Context context = getApplicationContext();
+			
+        	
+    		Toast toast = Toast.makeText(context, "There is no recipe with your ingredients", duration);
+    		toast.show();
+    		
+    		this.finishActivity(0);
+    		*/
+			AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
+			helpBuilder.setTitle("Time to shop...");
+			helpBuilder.setMessage("There is no food with your ingredients");
+			 
+			helpBuilder.setNeutralButton("okay", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					finishActivity(0);
+				}
+			});
+					 
+			 // Remember, create doesn't show the dialog
+			 AlertDialog helpDialog = helpBuilder.create();
+			 helpDialog.show();
+
+        } else {      
     	lv.setOnItemClickListener(new OnItemClickListener() {
     		public void onItemClick(AdapterView<?> parentView, View view, int position, long id) {
     			/*
@@ -83,27 +114,11 @@ public class SearchResult extends ListActivity {
         		*/
     			
     			Intent i = new Intent(SearchResult.this, DisplayRecipe.class);
-				i.putExtra("name", item);
-				startActivity(i);
-
-    			       		
+				i.putExtra("recipe", item);
+				startActivity(i);	       		
     		}       	
     	});
-        
- /*       
-        lv.setOnItemClickListener(new OnItemClickListener() {
-        	public void onItemClick(AdapterView<?> parentView, View view, int position, long id) {
-            	int duration = Toast.LENGTH_SHORT;
-            	Context context = getApplicationContext();
-            	String item = (String) parentView.getItemAtPosition(position);
-            	
-            	           	
-            	Toast toast = Toast.makeText(context, ""+item, duration);
-            	toast.show();
-            	      		
-        	}       	
-        });
-*/
+        }
 	}
 	
 	ArrayList<String> getIngredients() {
@@ -136,9 +151,12 @@ class ParseSearch extends AsyncTask<ArrayList<String>, Void, ArrayList<String>> 
 		ArrayList<String> ingredients = params[1];
 		
 		final String TAG = "MyActivity";
+		String temps = new String();
 		
 		String s = new String();
 		int number = 0;
+		
+		ArrayList<String> tempList = new ArrayList<String>();
 		
 		ArrayList<RecipeElement> temp = new ArrayList<RecipeElement>();
         Iterator <String> interator = searchList.iterator();
@@ -149,29 +167,32 @@ class ParseSearch extends AsyncTask<ArrayList<String>, Void, ArrayList<String>> 
         	do {
         		if (s.toLowerCase().contains(intIngr.next().toLowerCase())) {
         			number++;
-        			//break;
         		}
         	} while (intIngr.hasNext());
-            //----------------------------
-            //Log.i(TAG, "okay");
-            //Log.i(TAG, s);
-            //----------------------------
+
         	
         	if (number > 0) {
         		RecipeElement element = new RecipeElement();
         		element.putNumber(number);
-        		element.putName(s.substring(s.lastIndexOf("{S: ")+4, s.lastIndexOf(",")));
+        		temps = s.substring(s.lastIndexOf("name={S: ")+8, s.lastIndexOf(","));
+        		temps = temps.substring(0, temps.indexOf(", }"));
+        		element.putUrl(temps);
+        		element.putName(temps);
+        		element.putName(temps.substring(temps.lastIndexOf("wiki/")+5));
+        		//element.putName(temps.substring(s.lastIndexOf("wiki/"), s.lastIndexOf("")));
+        		
         		//s.substring(s.indexOf("name={S: "), s.lastIndexOf(","))
         		temp.add(element);
                 //----------------------------
                 Log.i(TAG, Integer.toString(number));
-                Log.i(TAG, s);
+                Log.i(TAG, temps);
                 //----------------------------
         	}
         } while (interator.hasNext());
 		
-        ArrayList<String> tempList = organizeList(temp);
-
+        if (!temp.isEmpty()) {
+        	tempList = organizeList(temp);
+        }
 		return tempList;
 	}
 	

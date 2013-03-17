@@ -38,6 +38,8 @@ public class SearchActivity extends Activity {
 	Button add9;
 	Button add10;
 	
+	String type;
+	
 	ArrayList<String> listIngr;
 	int cont = 0;
 	
@@ -47,7 +49,7 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.search_layout);
         
         Intent intent = getIntent();
-        String type = intent.getExtras().getString("type");
+        type = intent.getExtras().getString("type");
         
         listIngr = new ArrayList<String>();
         
@@ -197,7 +199,12 @@ public class SearchActivity extends Activity {
 				cont1++;
 				i.putExtra(name, iterator.next());
 			} while (iterator.hasNext());
-
+			
+			if (type.equals("food")) {
+				i.putExtra("tableName", "FooAppFoods");
+			} else {
+				i.putExtra("tableName", "FoodAppDrinks");
+			}
 			startActivity(i);
         	        	
 	    	//Toast toast = Toast.makeText(context, "search", duration);
