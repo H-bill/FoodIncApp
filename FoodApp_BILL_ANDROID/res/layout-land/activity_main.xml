@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imageLettuce"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/lettuce"
+        android:paddingLeft="40dip"
+        android:src="@drawable/lettuce" />
+
+    <ImageView
+        android:id="@+id/imageMargrita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/margrita"
+        android:paddingRight="45dip"
+        android:src="@drawable/margrita" />
+
+    <Button
+        android:id="@+id/mainButtonFood"
+        style="@style/AppTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="100dip"
+        android:minHeight="200dip"
+        android:minWidth="300dip"
+        android:background="@drawable/buttonshape"
+        android:text="@string/mainButtonFood"
+        android:textSize="@dimen/bigButtonTextSize"/>
+
+    <Button
+        android:id="@+id/mainButtonDrink"
+        style="@style/AppTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="150dip"
+        android:layout_marginRight="100dip"
+        android:minHeight="200dip"
+        android:minWidth="300dip"
+        android:background="@drawable/buttonshape"
+        android:text="@string/mainButtonDrink"
+        android:textSize="@dimen/bigButtonTextSize"/>
+
+</RelativeLayout>
