@@ -131,7 +131,8 @@ public class IngredientFetcher {
 			//Replace(htmlString, @"<(.|\n)*?>", "");
 			//out.close();//close the file
 			String body2 = body.replaceAll("Edit", "");
-			for (String line : body2.split("\n")) {
+			System.out.println(body2);
+			for (String line : body2.split("</li>")) {
 			    String stripped = Jsoup.parse(line).text();
 			    System.out.println(stripped);
 			}
