@@ -22,8 +22,9 @@ public class MainActivity extends Activity {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent Food = new Intent(getApplicationContext(), Food.class);
-				startActivity(Food);
+				Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+				i.putExtra("type", "food");
+				startActivity(i);
 			}
 		});
     }
@@ -33,8 +34,9 @@ public class MainActivity extends Activity {
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				Intent Drink = new Intent(getApplicationContext(), Drink.class);
-				startActivity(Drink);
+				Intent i = new Intent(getApplicationContext(), SearchActivity.class);
+				i.putExtra("type", "drink");
+				startActivity(i);
 			}
 		});
     }

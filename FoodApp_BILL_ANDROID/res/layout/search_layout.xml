@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What ingridients do you have?"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr1"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10" >
+
+        	<requestFocus />
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add1"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add" />
+	</LinearLayout>
+	
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr2"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:visibility="invisible" >
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add2"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add"
+        	android:visibility="invisible" />
+	</LinearLayout>
+	
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr3"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:visibility="invisible" >
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add3"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add"
+        	android:visibility="invisible" />
+	</LinearLayout>
+	
+	<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr4"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:visibility="invisible" >
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add4"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add"
+        	android:visibility="invisible" />
+	</LinearLayout>
+	
+		<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr5"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:visibility="invisible" >
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add5"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add"
+        	android:visibility="invisible" />
+	</LinearLayout>
+	
+			<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr6"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:visibility="invisible" >
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add6"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add"
+        	android:visibility="invisible" />
+	</LinearLayout>
+	
+				<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr7"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:visibility="invisible" >
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add7"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add"
+        	android:visibility="invisible" />
+	</LinearLayout>
+	
+					<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr8"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:visibility="invisible" >
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add8"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add"
+        	android:visibility="invisible" />
+	</LinearLayout>
+	
+						<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr9"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:visibility="invisible" >
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add9"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add"
+        	android:visibility="invisible" />
+	</LinearLayout>
+	
+							<LinearLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+    	<EditText
+    	    android:id="@+id/newIngr10"
+    	    android:layout_width="241dp"
+    	    android:layout_height="wrap_content"
+    	    android:ems="10"
+    	    android:visibility="invisible" >
+    	</EditText>
+    
+     	<Button
+        	android:id="@+id/add10"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:text="add"
+        	android:visibility="invisible" />
+	</LinearLayout>
+							
+</LinearLayout>
